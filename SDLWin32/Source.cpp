@@ -1,4 +1,8 @@
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
 #include <stdio.h>
 
 //Screen dimension constants
@@ -16,7 +20,7 @@ enum KeyPressSurfaces
 	KEY_PRESS_SURFACE_TOTAL
 };
 
-bool init(SDL_Window*& window, SDL_Surface*& screenSurface)
+bool init(SDL_Window *&window, SDL_Surface *&screenSurface)
 {
 	bool success = true;
 
@@ -42,7 +46,7 @@ bool init(SDL_Window*& window, SDL_Surface*& screenSurface)
 	return success;
 }
 
-bool loadMedia(SDL_Surface*& helloWorld)
+bool loadMedia(SDL_Surface *&helloWorld)
 {
 	bool success = true;
 
@@ -55,7 +59,7 @@ bool loadMedia(SDL_Surface*& helloWorld)
 	return success;
 }
 
-void close(SDL_Window*& window, SDL_Surface*& screenSurface, SDL_Surface*& helloWorld)
+void close(SDL_Window *&window, SDL_Surface *&screenSurface, SDL_Surface *&helloWorld)
 {
 	SDL_FreeSurface(helloWorld);
 	SDL_FreeSurface(screenSurface);
@@ -66,14 +70,14 @@ void close(SDL_Window*& window, SDL_Surface*& screenSurface, SDL_Surface*& hello
 	SDL_Quit();
 }
 
-int main( int argc, char* args[] )
+int main(int argc, char *args[])
 {
 	//The window we'll be rendering to
-	SDL_Window* gWindow = nullptr;
+	SDL_Window *gWindow = nullptr;
 
 	//The surface contained by the window
-	SDL_Surface* gScreenSurface = nullptr;
-	SDL_Surface* gHelloWorld = nullptr;
+	SDL_Surface *gScreenSurface = nullptr;
+	SDL_Surface *gHelloWorld = nullptr;
 
 	bool quit = false;
 	SDL_Event e;
