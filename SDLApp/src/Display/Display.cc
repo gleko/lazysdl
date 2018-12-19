@@ -137,9 +137,47 @@ bool Display::updateWindow()
 
 bool Display::renderTexture()
 {
-    SDL_RenderClear(m_renderer);
-    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+    renderViewPortTopLeft();
+    renderViewPortTopRight();
+    renderViewPortBottom();
+
     SDL_RenderPresent(m_renderer);
+}
+
+bool Display::renderViewPortTopLeft()
+{
+    SDL_Rect topLeftViewPort;
+    topLeftViewPort.x = 0;
+    topLeftViewPort.y = 0;
+    topLeftViewPort.w = SCREEN_WIDTH / 2;
+    topLeftViewPort.h = SCREEN_HEIGHT / 2;
+    SDL_RenderSetViewport(m_renderer, &topLeftViewPort);
+
+    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+}
+
+bool Display::renderViewPortTopRight()
+{
+    SDL_Rect topRightViewPort;
+    topRightViewPort.x = SCREEN_WIDTH / 2;
+    topRightViewPort.y = 0;
+    topRightViewPort.w = SCREEN_WIDTH / 2;
+    topRightViewPort.h = SCREEN_HEIGHT / 2;
+    SDL_RenderSetViewport(m_renderer, &topRightViewPort);
+
+    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+}
+
+bool Display::renderViewPortBottom()
+{
+    SDL_Rect bottomViewPort;
+    bottomViewPort.x = 0;
+    bottomViewPort.y = SCREEN_HEIGHT / 2;
+    bottomViewPort.w = SCREEN_WIDTH;
+    bottomViewPort.h = SCREEN_HEIGHT / 2;
+    SDL_RenderSetViewport(m_renderer, &bottomViewPort);
+
+    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
 }
 
 bool Display::renderGeometry()

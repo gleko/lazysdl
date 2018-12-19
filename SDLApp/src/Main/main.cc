@@ -14,7 +14,8 @@ int main(int argc, char *args[])
 	{
 		while(!quit)
 		{
-			display->renderGeometry();
+			display->renderTexture();
+
 			while (SDL_PollEvent(&e) != 0)
 			{
 				if (e.type == SDL_QUIT)

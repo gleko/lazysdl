@@ -33,6 +33,10 @@ public:
     bool updateWindow();
     bool renderTexture();
     bool renderGeometry();
+    bool renderViewPortTopLeft();
+    bool renderViewPortTopRight();
+    bool renderViewPortBottom();
+
     void setCurrentSurface(int);
 private:
     SDL_Window* m_window;
