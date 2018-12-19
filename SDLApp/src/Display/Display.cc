@@ -102,6 +102,11 @@ bool Display::loadMedia()
     return true;
 }
 
+bool Display::loadGeometry()
+{
+    return true;
+}
+
 bool Display::loadTextures()
 {
     for (int i = KeyPressSurfaces::KEY_PRESS_SURFACE_DEFAULT;
@@ -134,6 +139,31 @@ bool Display::renderTexture()
 {
     SDL_RenderClear(m_renderer);
     SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+    SDL_RenderPresent(m_renderer);
+}
+
+bool Display::renderGeometry()
+{
+    SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
+    SDL_RenderClear(m_renderer);
+
+    SDL_Rect fillRect = {SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
+    SDL_SetRenderDrawColor(m_renderer, 0xAA, 0x11, 0x00, 0xFF);
+    SDL_RenderFillRect(m_renderer, &fillRect);
+
+    SDL_Rect outlineRect = {SCREEN_WIDTH / 6, SCREEN_HEIGHT / 6, SCREEN_WIDTH*2 / 3, SCREEN_HEIGHT*2 / 3};
+    SDL_SetRenderDrawColor(m_renderer, 0x00, 0xFF, 0x00, 0xFF);
+    SDL_RenderDrawRect(m_renderer, &outlineRect);
+
+    SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0xFF, 0xFF);
+    SDL_RenderDrawLine(m_renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
+
+    SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0x00, 0xFF);
+    for (int i=0; i<SCREEN_HEIGHT; i+=4)
+    {
+        SDL_RenderDrawPoint(m_renderer, SCREEN_WIDTH / 2, i);
+    }
+
     SDL_RenderPresent(m_renderer);
 }
 

@@ -22,12 +22,17 @@ class Display
 public:
     Display();
     ~Display();
+
     SDL_Surface* loadSurface(std::string);
     SDL_Texture* loadTexture(std::string);
+    
     bool loadMedia();
     bool loadTextures();
+    bool loadGeometry();
+    
     bool updateWindow();
     bool renderTexture();
+    bool renderGeometry();
     void setCurrentSurface(int);
 private:
     SDL_Window* m_window;
