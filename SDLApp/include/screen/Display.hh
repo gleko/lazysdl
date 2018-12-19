@@ -31,6 +31,7 @@ private:
     SDL_Surface* m_screenSurface;
     std::vector<SDL_Surface*> m_medias;
     int m_currentSurface;
+    int m_imgFlags;
 };
 
 } //namespace screen

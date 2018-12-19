@@ -16,6 +16,13 @@ Display::Display()
         exit(2);
     }
 
+    m_imgFlags = IMG_INIT_PNG;
+    if (!IMG_Init(m_imgFlags) &&
+        !m_imgFlags)
+    {
+        printf("IMG Flags problem: %s\n", SDL_GetError());
+        exit(3);
+    }
     m_screenSurface = SDL_GetWindowSurface(m_window);
 }
 
@@ -32,7 +39,7 @@ SDL_Surface* Display::loadSurface(std::string mediaPath)
 {
     printf("Display::loadMedia: %s\n", mediaPath.c_str());
     SDL_Surface* optimizedSurface = nullptr;
-    SDL_Surface* loadedSurface = SDL_LoadBMP(mediaPath.c_str());
+    SDL_Surface* loadedSurface = IMG_Load(mediaPath.c_str());
     if (loadedSurface == nullptr)
     {
         printf("Error, image not found: %s\n", mediaPath.c_str());
@@ -52,7 +59,7 @@ bool Display::loadMedia()
          i++)
     {
         std::stringstream ss;
-        ss << i << ".bmp";
+        ss << i << ".png";
         m_medias.push_back(loadSurface(ss.str()));
     }
 }
