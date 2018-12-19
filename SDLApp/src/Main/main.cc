@@ -24,7 +24,7 @@ int main(int argc, char *args[])
 
 	screen::Display* display = new screen::Display();
 
-	if (display->loadMedia("hello_world.bmp"))
+	if (display->loadMedia("press.bmp"))
 	{
 		while(!quit)
 		{
@@ -37,6 +37,10 @@ int main(int argc, char *args[])
 				}
 			}
 		}
+	}
+	else
+	{
+		printf("Ajjajjaj!\n");
 	}
 
 	return 0;
