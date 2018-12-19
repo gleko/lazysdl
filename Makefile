@@ -1,5 +1,8 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = SDLApp/src/Main/main.cc
+OBJS = SDLApp/src/Main/main.cc SDLApp/src/Display/Display.cc
+
+#IDIR specifies the include directory
+IDIR = -ISDLApp/include
 
 #CC specifies which compiler we're using
 CC = g++
@@ -17,4 +20,4 @@ OBJ_NAME = bin/SDLApp
 
 #This is the target that compiles our executable
 all : $(OBJS)
-	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+	$(CC) $(IDIR) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
