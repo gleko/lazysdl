@@ -1,5 +1,10 @@
 # lazysdl
 
 To compile on linux:
-`g++ -std=c++11 Source.cpp -w -lSDL2 -o SDLApp`
+`make`
 
+To compile AND run on linux:
+`./run.sh`
+
+Bash is needed
+Resources not included
