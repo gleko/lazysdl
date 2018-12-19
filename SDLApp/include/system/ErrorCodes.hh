@@ -1,0 +1,8 @@
+#pragma once
+
+enum ErrorCode {
+    INIT_FAILED,
+    CREATE_WINDOW_FAILED,
+    INVALID_IMG_FLAGS,
+    CREATE_RENDERER_FAILED
+};

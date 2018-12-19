@@ -23,13 +23,19 @@ public:
     Display();
     ~Display();
     SDL_Surface* loadSurface(std::string);
+    SDL_Texture* loadTexture(std::string);
     bool loadMedia();
+    bool loadTextures();
     bool updateWindow();
+    bool renderTexture();
     void setCurrentSurface(int);
 private:
     SDL_Window* m_window;
     SDL_Surface* m_screenSurface;
     std::vector<SDL_Surface*> m_medias;
+    std::vector<SDL_Texture*> m_textures;
+    //SDL_Texture* m_texture;
+    SDL_Renderer* m_renderer;
     int m_currentSurface;
     int m_imgFlags;
 };

@@ -10,11 +10,11 @@ int main(int argc, char *args[])
 
 	screen::Display* display = new screen::Display();
 
-	if (display->loadMedia())
+	if (display->loadTextures())
 	{
 		while(!quit)
 		{
-			display->updateWindow();
+			display->renderTexture();
 			while (SDL_PollEvent(&e) != 0)
 			{
 				if (e.type == SDL_QUIT)
