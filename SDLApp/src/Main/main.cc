@@ -1,21 +1,7 @@
+#include <input/Keys.hh>
 #include <screen/Display.hh>
 
 #include <stdio.h>
-
-//Screen dimension constants
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
-
-//Key press surfaces constants
-enum KeyPressSurfaces
-{
-	KEY_PRESS_SURFACE_DEFAULT,
-	KEY_PRESS_SURFACE_UP,
-	KEY_PRESS_SURFACE_DOWN,
-	KEY_PRESS_SURFACE_LEFT,
-	KEY_PRESS_SURFACE_RIGHT,
-	KEY_PRESS_SURFACE_TOTAL
-};
 
 int main(int argc, char *args[])
 {
@@ -24,7 +10,7 @@ int main(int argc, char *args[])
 
 	screen::Display* display = new screen::Display();
 
-	if (display->loadMedia("press.bmp"))
+	if (display->loadMedia())
 	{
 		while(!quit)
 		{
@@ -34,6 +20,32 @@ int main(int argc, char *args[])
 				if (e.type == SDL_QUIT)
 				{
 					quit = true;
+				}
+				else if (e.type == SDL_KEYDOWN)
+				{
+					switch( e.key.keysym.sym )
+					{
+						case SDLK_UP:
+							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_UP);
+							break;
+						case SDLK_DOWN:
+							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN);
+							break;
+						case SDLK_LEFT:
+							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_LEFT);
+							break;
+						case SDLK_RIGHT:
+							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_RIGHT);
+							break;
+						case SDLK_ESCAPE:
+							return 0;
+						default:
+							break;
+					}
+				}
+				else if (e.type == SDL_KEYUP)
+				{
+					display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_DEFAULT);
 				}
 			}
 		}

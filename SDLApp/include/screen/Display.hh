@@ -9,6 +9,7 @@
 #endif
 
 #include <string>
+#include <vector>
 
 namespace screen {
 
@@ -21,12 +22,15 @@ class Display
 public:
     Display();
     ~Display();
-    bool loadMedia(std::string);
+    SDL_Surface* loadSurface(std::string);
+    bool loadMedia();
     bool updateWindow();
+    void setCurrentSurface(int);
 private:
     SDL_Window* m_window;
     SDL_Surface* m_screenSurface;
-    SDL_Surface* m_media;
+    std::vector<SDL_Surface*> m_medias;
+    int m_currentSurface;
 };
 
 } //namespace screen

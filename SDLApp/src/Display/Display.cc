@@ -1,6 +1,8 @@
 #include <screen/Display.hh>
+#include <input/Keys.hh>
 
 #include <assert.h>
+#include <sstream>
 
 namespace screen {
 
@@ -26,21 +28,33 @@ Display::~Display()
     m_window = nullptr;
 }
 
-bool Display::loadMedia(std::string mediaPath)
+SDL_Surface* Display::loadSurface(std::string mediaPath)
 {
-    m_media = SDL_LoadBMP(mediaPath.c_str());
+    printf("Display::loadMedia: %s\n", mediaPath.c_str());
+    return SDL_LoadBMP(mediaPath.c_str());
+}
 
-    if (m_media == nullptr)
+bool Display::loadMedia()
+{
+    for (int i = KeyPressSurfaces::KEY_PRESS_SURFACE_DEFAULT;
+         i < KeyPressSurfaces::KEY_PRESS_SURFACE_TOTAL;
+         i++)
     {
-        return false;
+        std::stringstream ss;
+        ss << i << ".bmp";
+        m_medias.push_back(loadSurface(ss.str()));
     }
-    return true;
 }
 
 bool Display::updateWindow()
 {
-    SDL_BlitSurface(m_media, NULL, m_screenSurface, NULL);
+    SDL_BlitSurface(m_medias[m_currentSurface], NULL, m_screenSurface, NULL);
     SDL_UpdateWindowSurface(m_window);
+}
+
+void Display::setCurrentSurface(int surface)
+{
+    m_currentSurface = surface;
 }
 
 }
