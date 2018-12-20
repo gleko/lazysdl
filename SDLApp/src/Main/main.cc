@@ -10,11 +10,11 @@ int main(int argc, char *args[])
 
 	screen::Display* display = new screen::Display();
 
-	if (display->loadTextures())
+	if (display->loadColorKeyedTextures())
 	{
 		while(!quit)
 		{
-			display->renderTexture();
+			display->renderColorKeyedTexture();
 
 			while (SDL_PollEvent(&e) != 0)
 			{
@@ -39,6 +39,7 @@ int main(int argc, char *args[])
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_RIGHT);
 							break;
 						case SDLK_ESCAPE:
+						case SDLK_q:
 							return 0;
 						default:
 							break;

@@ -43,9 +43,18 @@ Display::~Display()
     SDL_FreeSurface(m_screenSurface);
     SDL_DestroyWindow(m_window);
 
+    for (auto& t : m_textures)
+    {
+        delete t;
+        t = nullptr;
+    }
+
     m_screenSurface = nullptr;
     m_window = nullptr;
     m_renderer = nullptr;
+
+    fooTexture.free();
+    backgroundTexture.free();
 
     IMG_Quit();
     SDL_Quit();
@@ -113,13 +122,30 @@ bool Display::loadTextures()
          i < KeyPressSurfaces::KEY_PRESS_SURFACE_TOTAL;
          i++)
     {
+        Texture* texture = new Texture();
         std::stringstream ss;
         ss << i << ".png";
-        m_textures.push_back(loadTexture(ss.str()));
+        texture->loadFromFile(ss.str(), m_renderer);
+        m_textures.push_back(texture);
         if (!m_textures[i])
         {
             return false;
         }
+    }
+    return true;
+}
+
+bool Display::loadColorKeyedTextures()
+{
+    if (!fooTexture.loadFromFile("foo.png", m_renderer))
+    {
+        printf("Failed to load foo.png\n");
+        return false;
+    }
+    if (!backgroundTexture.loadFromFile("background.png", m_renderer))
+    {
+        printf("Failed to load background.png\n");
+        return false;
     }
     return true;
 }
@@ -144,6 +170,16 @@ bool Display::renderTexture()
     SDL_RenderPresent(m_renderer);
 }
 
+bool Display::renderColorKeyedTexture()
+{
+    SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(m_renderer);
+
+    backgroundTexture.render(m_renderer, 0, 0);
+    fooTexture.render(m_renderer, 240, 190);
+
+    SDL_RenderPresent(m_renderer);
+}
 bool Display::renderViewPortTopLeft()
 {
     SDL_Rect topLeftViewPort;
@@ -153,7 +189,7 @@ bool Display::renderViewPortTopLeft()
     topLeftViewPort.h = SCREEN_HEIGHT / 2;
     SDL_RenderSetViewport(m_renderer, &topLeftViewPort);
 
-    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+    m_textures[m_currentSurface]->render(m_renderer, 0, 0);
 }
 
 bool Display::renderViewPortTopRight()
@@ -165,7 +201,7 @@ bool Display::renderViewPortTopRight()
     topRightViewPort.h = SCREEN_HEIGHT / 2;
     SDL_RenderSetViewport(m_renderer, &topRightViewPort);
 
-    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+    m_textures[m_currentSurface]->render(m_renderer, 100, 0);
 }
 
 bool Display::renderViewPortBottom()
@@ -177,7 +213,7 @@ bool Display::renderViewPortBottom()
     bottomViewPort.h = SCREEN_HEIGHT / 2;
     SDL_RenderSetViewport(m_renderer, &bottomViewPort);
 
-    SDL_RenderCopy(m_renderer, m_textures[m_currentSurface], NULL, NULL);
+    m_textures[m_currentSurface]->render(m_renderer, 0, 200);
 }
 
 bool Display::renderGeometry()

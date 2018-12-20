@@ -1,21 +1,12 @@
 #pragma once
 
-#ifdef __linux__
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#else
-#include <SDL.h>
-#include <SDL_image.h>
-#endif
+#include <screen/Constants.hh>
+#include <screen/Texture.hh>
 
 #include <string>
 #include <vector>
 
 namespace screen {
-
-//Screen dimension constants
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
 
 class Display
 {
@@ -29,6 +20,7 @@ public:
     bool loadMedia();
     bool loadTextures();
     bool loadGeometry();
+    bool loadColorKeyedTextures();
     
     bool updateWindow();
     bool renderTexture();
@@ -36,14 +28,16 @@ public:
     bool renderViewPortTopLeft();
     bool renderViewPortTopRight();
     bool renderViewPortBottom();
+    bool renderColorKeyedTexture();
 
     void setCurrentSurface(int);
 private:
     SDL_Window* m_window;
     SDL_Surface* m_screenSurface;
     std::vector<SDL_Surface*> m_medias;
-    std::vector<SDL_Texture*> m_textures;
-    //SDL_Texture* m_texture;
+    std::vector<Texture*> m_textures;
+    Texture fooTexture;
+    Texture backgroundTexture;
     SDL_Renderer* m_renderer;
     int m_currentSurface;
     int m_imgFlags;
