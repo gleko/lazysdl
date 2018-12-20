@@ -31,6 +31,7 @@ public:
     bool renderViewPortBottom();
     bool renderColorKeyedTexture();
     bool renderSpriteSheetTexture();
+    bool renderSpriteSheetTexture(Uint8 red, Uint8 green, Uint8 blue);
 
     void setCurrentSurface(int);
 private:

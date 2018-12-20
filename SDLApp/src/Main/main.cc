@@ -8,6 +8,9 @@ int main(int argc, char *args[])
 {
 	bool quit = false;
 	SDL_Event e;
+	Uint8 r = 255;
+	Uint8 g = 255;
+	Uint8 b = 255;
 
 	screen::Display* display = new screen::Display();
 
@@ -15,7 +18,7 @@ int main(int argc, char *args[])
 	{
 		while(!quit)
 		{
-			display->renderSpriteSheetTexture();
+			display->renderSpriteSheetTexture(r, g, b);
 
 			while (SDL_PollEvent(&e) != 0)
 			{
@@ -29,15 +32,25 @@ int main(int argc, char *args[])
 					{
 						case SDLK_UP:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_UP);
+							r += 5;
 							break;
 						case SDLK_DOWN:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN);
+							r -= 5;
 							break;
 						case SDLK_LEFT:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_LEFT);
+							g -= 5;
 							break;
 						case SDLK_RIGHT:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_RIGHT);
+							g -= 5;
+							break;
+						case SDLK_m:
+							b += 5;
+							break;
+						case SDLK_n:
+							b -= 5;
 							break;
 						case SDLK_ESCAPE:
 						case SDLK_q:

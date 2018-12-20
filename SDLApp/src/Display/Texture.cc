@@ -66,6 +66,11 @@ void Texture::render(SDL_Renderer* renderer, int x, int y, SDL_Rect* clip = null
     SDL_RenderCopy(renderer, m_texture, clip, &renderQuad);
 }
 
+void Texture::setColorModulation(Uint8 red, Uint8 green, Uint8 blue)
+{
+    SDL_SetTextureColorMod(m_texture, red, green, blue);
+}
+
 int Texture::getHeight()
 {
     return m_height;

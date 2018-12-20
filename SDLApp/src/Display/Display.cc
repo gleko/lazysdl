@@ -285,6 +285,21 @@ bool Display::renderSpriteSheetTexture()
     SDL_RenderPresent(m_renderer);
 }
 
+bool Display::renderSpriteSheetTexture(Uint8 red, Uint8 green, Uint8 blue)
+{
+    SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(m_renderer);
+
+    m_spriteSheetTexture.setColorModulation(red, green, blue);
+
+    m_spriteSheetTexture.render(m_renderer, 0, 0, &m_spriteClips[0]);
+    m_spriteSheetTexture.render(m_renderer, SCREEN_WIDTH-m_spriteClips[1].w, 0, &m_spriteClips[1]);
+    m_spriteSheetTexture.render(m_renderer, 0, SCREEN_HEIGHT-m_spriteClips[2].h, &m_spriteClips[2]);
+    m_spriteSheetTexture.render(m_renderer, SCREEN_WIDTH-m_spriteClips[3].w, SCREEN_HEIGHT-m_spriteClips[3].h, &m_spriteClips[3]);
+
+    SDL_RenderPresent(m_renderer);
+}
+
 void Display::setCurrentSurface(int surface)
 {
     m_currentSurface = surface;

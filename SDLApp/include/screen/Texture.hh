@@ -12,6 +12,7 @@ public:
     bool loadFromFile(std::string, SDL_Renderer*);
     void free();
     void render(SDL_Renderer*, int, int, SDL_Rect*);
+    void setColorModulation(Uint8, Uint8, Uint8);
 
     int getWidth();
     int getHeight();
