@@ -1,5 +1,6 @@
 #include <input/Keys.hh>
 #include <screen/Display.hh>
+#include <system/ErrorCodes.hh>
 
 #include <stdio.h>
 
@@ -10,11 +11,11 @@ int main(int argc, char *args[])
 
 	screen::Display* display = new screen::Display();
 
-	if (display->loadColorKeyedTextures())
+	if (display->loadSprites())
 	{
 		while(!quit)
 		{
-			display->renderColorKeyedTexture();
+			display->renderSpriteSheetTexture();
 
 			while (SDL_PollEvent(&e) != 0)
 			{
@@ -55,7 +56,8 @@ int main(int argc, char *args[])
 	else
 	{
 		printf("Ajjajjaj!\n");
+		exit(ErrorCode::TEXTURE_LOAD_FAILED);
 	}
 
-	return 0;
+	return ErrorCode::OK;
 }

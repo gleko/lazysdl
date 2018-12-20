@@ -21,6 +21,7 @@ public:
     bool loadTextures();
     bool loadGeometry();
     bool loadColorKeyedTextures();
+    bool loadSprites();
     
     bool updateWindow();
     bool renderTexture();
@@ -29,6 +30,7 @@ public:
     bool renderViewPortTopRight();
     bool renderViewPortBottom();
     bool renderColorKeyedTexture();
+    bool renderSpriteSheetTexture();
 
     void setCurrentSurface(int);
 private:
@@ -38,6 +40,8 @@ private:
     std::vector<Texture*> m_textures;
     Texture fooTexture;
     Texture backgroundTexture;
+    SDL_Rect m_spriteClips[4];
+    Texture m_spriteSheetTexture;
     SDL_Renderer* m_renderer;
     int m_currentSurface;
     int m_imgFlags;

@@ -150,6 +150,37 @@ bool Display::loadColorKeyedTextures()
     return true;
 }
 
+bool Display::loadSprites()
+{
+    if (!m_spriteSheetTexture.loadFromFile("sprites.png", m_renderer))
+    {
+        printf("Failed to load sprites.png\n");
+        return false;
+    }
+
+    m_spriteClips[0].x = 0;
+    m_spriteClips[0].y = 0;
+    m_spriteClips[0].w = 100;
+    m_spriteClips[0].h = 100;
+
+    m_spriteClips[1].x = 100;
+    m_spriteClips[1].y = 0;
+    m_spriteClips[1].w = 100;
+    m_spriteClips[1].h = 100;
+
+    m_spriteClips[2].x = 0;
+    m_spriteClips[2].y = 100;
+    m_spriteClips[2].w = 100;
+    m_spriteClips[2].h = 100;
+
+    m_spriteClips[3].x = 100;
+    m_spriteClips[3].y = 100;
+    m_spriteClips[3].w = 100;
+    m_spriteClips[3].h = 100;
+
+    return true;
+}
+
 bool Display::updateWindow()
 {
     SDL_Rect stretchRect;
@@ -175,8 +206,8 @@ bool Display::renderColorKeyedTexture()
     SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(m_renderer);
 
-    backgroundTexture.render(m_renderer, 0, 0);
-    fooTexture.render(m_renderer, 240, 190);
+    backgroundTexture.render(m_renderer, 0, 0, nullptr);
+    fooTexture.render(m_renderer, 240, 190, nullptr);
 
     SDL_RenderPresent(m_renderer);
 }
@@ -189,7 +220,7 @@ bool Display::renderViewPortTopLeft()
     topLeftViewPort.h = SCREEN_HEIGHT / 2;
     SDL_RenderSetViewport(m_renderer, &topLeftViewPort);
 
-    m_textures[m_currentSurface]->render(m_renderer, 0, 0);
+    m_textures[m_currentSurface]->render(m_renderer, 0, 0, nullptr);
 }
 
 bool Display::renderViewPortTopRight()
@@ -201,7 +232,7 @@ bool Display::renderViewPortTopRight()
     topRightViewPort.h = SCREEN_HEIGHT / 2;
     SDL_RenderSetViewport(m_renderer, &topRightViewPort);
 
-    m_textures[m_currentSurface]->render(m_renderer, 100, 0);
+    m_textures[m_currentSurface]->render(m_renderer, 100, 0, nullptr);
 }
 
 bool Display::renderViewPortBottom()
@@ -213,7 +244,7 @@ bool Display::renderViewPortBottom()
     bottomViewPort.h = SCREEN_HEIGHT / 2;
     SDL_RenderSetViewport(m_renderer, &bottomViewPort);
 
-    m_textures[m_currentSurface]->render(m_renderer, 0, 200);
+    m_textures[m_currentSurface]->render(m_renderer, 0, 200, nullptr);
 }
 
 bool Display::renderGeometry()
@@ -237,6 +268,19 @@ bool Display::renderGeometry()
     {
         SDL_RenderDrawPoint(m_renderer, SCREEN_WIDTH / 2, i);
     }
+
+    SDL_RenderPresent(m_renderer);
+}
+
+bool Display::renderSpriteSheetTexture()
+{
+    SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(m_renderer);
+
+    m_spriteSheetTexture.render(m_renderer, 0, 0, &m_spriteClips[0]);
+    m_spriteSheetTexture.render(m_renderer, SCREEN_WIDTH-m_spriteClips[1].w, 0, &m_spriteClips[1]);
+    m_spriteSheetTexture.render(m_renderer, 0, SCREEN_HEIGHT-m_spriteClips[2].h, &m_spriteClips[2]);
+    m_spriteSheetTexture.render(m_renderer, SCREEN_WIDTH-m_spriteClips[3].w, SCREEN_HEIGHT-m_spriteClips[3].h, &m_spriteClips[3]);
 
     SDL_RenderPresent(m_renderer);
 }
