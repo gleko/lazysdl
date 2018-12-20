@@ -181,6 +181,23 @@ bool Display::loadSprites()
     return true;
 }
 
+bool Display::loadBlendedTextures()
+{
+    if (!fadein.loadFromFile("fadein.png", m_renderer))
+    {
+        printf("Unable to load fadein.png\n");
+        return false;
+    }
+    if (!fadeout.loadFromFile("fadeout.png", m_renderer))
+    {
+        printf("Unable to load fadeout.png\n");
+        return false;
+    }
+
+    fadein.setBlendMode(SDL_BLENDMODE_BLEND);
+    return true;
+}
+
 bool Display::updateWindow()
 {
     SDL_Rect stretchRect;
@@ -296,6 +313,19 @@ bool Display::renderSpriteSheetTexture(Uint8 red, Uint8 green, Uint8 blue)
     m_spriteSheetTexture.render(m_renderer, SCREEN_WIDTH-m_spriteClips[1].w, 0, &m_spriteClips[1]);
     m_spriteSheetTexture.render(m_renderer, 0, SCREEN_HEIGHT-m_spriteClips[2].h, &m_spriteClips[2]);
     m_spriteSheetTexture.render(m_renderer, SCREEN_WIDTH-m_spriteClips[3].w, SCREEN_HEIGHT-m_spriteClips[3].h, &m_spriteClips[3]);
+
+    SDL_RenderPresent(m_renderer);
+}
+
+bool Display::renderBlendedTextures(Uint8 alpha)
+{
+    SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(m_renderer);
+
+    fadein.render(m_renderer, 0, 0, nullptr);
+
+    fadeout.setAlpha(alpha);
+    fadeout.render(m_renderer, 0, 0, nullptr);
 
     SDL_RenderPresent(m_renderer);
 }

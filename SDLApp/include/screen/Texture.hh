@@ -13,6 +13,8 @@ public:
     void free();
     void render(SDL_Renderer*, int, int, SDL_Rect*);
     void setColorModulation(Uint8, Uint8, Uint8);
+    void setBlendMode(SDL_BlendMode);
+    void setAlpha(Uint8);
 
     int getWidth();
     int getHeight();

@@ -11,14 +11,15 @@ int main(int argc, char *args[])
 	Uint8 r = 255;
 	Uint8 g = 255;
 	Uint8 b = 255;
+	Uint8 a = 255;
 
 	screen::Display* display = new screen::Display();
 
-	if (display->loadSprites())
+	if (display->loadBlendedTextures())
 	{
 		while(!quit)
 		{
-			display->renderSpriteSheetTexture(r, g, b);
+			display->renderBlendedTextures(a);
 
 			while (SDL_PollEvent(&e) != 0)
 			{
@@ -32,25 +33,27 @@ int main(int argc, char *args[])
 					{
 						case SDLK_UP:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_UP);
-							r += 5;
+							if (r+5 > 255) { r = 255; } else { r += 5; }
+							if (a+5 > 255) { a = 255; } else { a += 5; }
 							break;
 						case SDLK_DOWN:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN);
-							r -= 5;
+							if (r-5 < 0) { r = 0; } else { r -= 5; }
+							if (a-5 < 0) { a = 0; } else { a -= 5; }
 							break;
 						case SDLK_LEFT:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_LEFT);
-							g -= 5;
+							if (g-5 < 0) { g = 0; } else { g -= 5; }
 							break;
 						case SDLK_RIGHT:
 							display->setCurrentSurface(KeyPressSurfaces::KEY_PRESS_SURFACE_RIGHT);
-							g -= 5;
+							if (g+5 > 255) { g = 255; } else { g += 5; }
 							break;
 						case SDLK_m:
-							b += 5;
+							if (b+5 > 255) { b = 255; } else { b += 5; }
 							break;
 						case SDLK_n:
-							b -= 5;
+							if (b-5 < 0) { b = 0; } else { b -= 5; }
 							break;
 						case SDLK_ESCAPE:
 						case SDLK_q:

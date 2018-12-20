@@ -71,6 +71,16 @@ void Texture::setColorModulation(Uint8 red, Uint8 green, Uint8 blue)
     SDL_SetTextureColorMod(m_texture, red, green, blue);
 }
 
+void Texture::setBlendMode(SDL_BlendMode blending)
+{
+    SDL_SetTextureBlendMode(m_texture, blending);
+}
+
+void Texture::setAlpha(Uint8 alpha)
+{
+    SDL_SetTextureAlphaMod(m_texture, alpha);
+}
+
 int Texture::getHeight()
 {
     return m_height;

@@ -22,6 +22,7 @@ public:
     bool loadGeometry();
     bool loadColorKeyedTextures();
     bool loadSprites();
+    bool loadBlendedTextures();
     
     bool updateWindow();
     bool renderTexture();
@@ -31,7 +32,8 @@ public:
     bool renderViewPortBottom();
     bool renderColorKeyedTexture();
     bool renderSpriteSheetTexture();
-    bool renderSpriteSheetTexture(Uint8 red, Uint8 green, Uint8 blue);
+    bool renderSpriteSheetTexture(Uint8, Uint8, Uint8);
+    bool renderBlendedTextures(Uint8);
 
     void setCurrentSurface(int);
 private:
@@ -41,6 +43,8 @@ private:
     std::vector<Texture*> m_textures;
     Texture fooTexture;
     Texture backgroundTexture;
+    Texture fadein;
+    Texture fadeout;
     SDL_Rect m_spriteClips[4];
     Texture m_spriteSheetTexture;
     SDL_Renderer* m_renderer;
