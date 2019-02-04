@@ -34,7 +34,6 @@ public:
     bool renderSpriteSheetTexture();
     bool renderSpriteSheetTexture(Uint8, Uint8, Uint8);
     bool renderBlendedTextures(Uint8);
-
     void setCurrentSurface(int);
 private:
     SDL_Window* m_window;
@@ -47,7 +46,7 @@ private:
     Texture fadeout;
     SDL_Rect m_spriteClips[4];
     Texture m_spriteSheetTexture;
-    SDL_Renderer* m_renderer;
+    
     int m_currentSurface;
     int m_imgFlags;
 };

@@ -71,7 +71,7 @@ int main(int argc, char *args[])
 	}
 	else
 	{
-		printf("Ajjajjaj!\n");
+		printf("Unable to load textures!\n");
 		exit(ErrorCode::TEXTURE_LOAD_FAILED);
 	}
 

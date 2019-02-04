@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = SDLApp/src/Main/main.cc SDLApp/src/Display/Display.cc SDLApp/src/Display/Texture.cc
+OBJS = SDLApp/src/Main/main.cc SDLApp/src/Display/Renderer.cc SDLApp/src/Display/Display.cc SDLApp/src/Display/Texture.cc
 
 #IDIR specifies the include directory
 IDIR = -ISDLApp/include
