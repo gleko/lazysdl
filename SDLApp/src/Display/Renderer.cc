@@ -31,7 +31,7 @@ Renderer::~Renderer()
 Renderer* Renderer::getInstance()
 {
     static Renderer* instance;
-    
+
     if (instance == 0)
     {
         instance = new Renderer();

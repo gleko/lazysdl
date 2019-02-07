@@ -22,4 +22,6 @@ private:
     SDL_Texture* m_texture;
     int m_width;
     int m_height;
+    int m_horizontalFrames;
+    int m_verticalFrames;
 };

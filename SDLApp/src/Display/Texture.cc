@@ -3,7 +3,9 @@
 Texture::Texture() :
     m_texture(nullptr),
     m_width(0),
-    m_height(0)
+    m_height(0),
+    m_horizontalFrames(1),
+    m_verticalFrames(1)
 {}
 
 Texture::~Texture()
@@ -50,6 +52,8 @@ void Texture::free()
         m_texture = nullptr;
         m_width = 0;
         m_height = 0;
+        m_verticalFrames = 1;
+        m_horizontalFrames = 1;
     }
 }
 

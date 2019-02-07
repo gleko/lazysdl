@@ -184,6 +184,11 @@ bool Display::loadBlendedTextures()
     return true;
 }
 
+bool Display::loadAnimatedTextures(int verticalFrames, int horizontalFrames)
+{
+    return true;
+}
+
 bool Display::updateWindow()
 {
     SDL_Rect stretchRect;

@@ -23,6 +23,7 @@ public:
     bool loadColorKeyedTextures();
     bool loadSprites();
     bool loadBlendedTextures();
+    bool loadAnimatedTextures(int, int);
     
     bool updateWindow();
     bool renderTexture();
